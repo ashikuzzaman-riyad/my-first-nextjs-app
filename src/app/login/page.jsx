@@ -30,6 +30,7 @@ export default function LoginPage() {
   // Google login
   const loginWithGoogle = () => {
     signIn("google"); // NextAuth handles redirect automatically
+    router.push("/")
   };
 
   return (
@@ -39,7 +40,7 @@ export default function LoginPage() {
 
         <button
           onClick={loginWithGoogle}
-          className="w-full bg-red-500 text-white py-2 rounded-lg mb-3"
+          className="w-full bg-red-500 text-white py-2 rounded-lg mb-3 "
         >
           Continue with Google
         </button>
