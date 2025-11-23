@@ -22,15 +22,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <SecssionWrapper>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+          >
+          <SecssionWrapper>
           <Navbar></Navbar>
           {children}
           <Footer></Footer>
-        </body>
       </SecssionWrapper>
+        </body>
     </html>
   );
 }
