@@ -31,7 +31,7 @@ export default function page() {
             </p>
           </div>
 
-          <div className="w-full h-72 bg-gray-200 rounded-2xl overflow-hidden">
+          <div className="w-full h-72 bg-gray-50 rounded-2xl overflow-hidden">
             <img
               src="https://via.placeholder.com/600x400"
               alt="About our store"

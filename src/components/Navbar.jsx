@@ -11,7 +11,8 @@ export default function Navbar (){
             <Link href='/'>Home</Link>
             <Link href='/about'>About</Link>
             <Link href='/product'>Product</Link>
-            <Link href='/add-product'>Add Product</Link>
+            <Link href='/addproduct'>Add Product</Link>
+            <Link href='/manageproduct'>Manage Products</Link>
         </nav>
             </div>
             <div className="space-x-5">
