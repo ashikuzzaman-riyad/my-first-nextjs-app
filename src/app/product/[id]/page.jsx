@@ -5,69 +5,86 @@ import React from 'react'
 
 export default async function page({params}) {
     const { id } = await params
-     const data = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-  const posts = await data.json()
+     const res = await fetch(`http://localhost:5000/product/${id}`)
+  const data =await  res.json()
+
   return (
- 
-    <main className="min-h-screen bg-gray-50 py-10 px-6">
-      <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-lg overflow-hidden md:flex">
-        {/* Product Image */}
-        <div className="md:w-1/2 h-96 md:h-auto bg-gray-200 relative">
-          <img
-            src={posts.image}
-            alt={posts.name}
-            className="w-full h-full object-cover"
-          />
-          {posts.badge && (
-            <span className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-              {product.badge}
-            </span>
-          )}
-        </div>
+ <main className="min-h-screen bg-gradient-to-br from-white via-gray-100 to-gray-200 py-16 px-6">
+  <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    
+    {/* LEFT: PRODUCT IMAGE */}
+    <div className="relative w-full h-[520px] lg:h-[650px] rounded-3xl overflow-hidden shadow-2xl bg-white">
+      <img
+        src={data.image}
+        alt={data.name}
+        className="w-full h-full object-cover"
+      />
 
-        {/* Product Info */}
-        <div className="md:w-1/2 p-8 flex flex-col justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">{posts.name}</h1>
-            <p className="text-gray-600 mt-4">{posts.description}</p>
+      {/* Badge */}
+      {data.badge && (
+        <span className="absolute top-6 left-6 bg-black/80 text-white px-5 py-1.5 rounded-full text-sm tracking-wide shadow-xl">
+          {data.badge}
+        </span>
+      )}
+    </div>
 
-            <div className="flex items-center mt-6 gap-2 text-yellow-400">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <svg
-                  key={i}
-                  className={`w-6 h-6 ${
-                    i < Math.round(posts.rating) ? "fill-current" : "text-gray-300"
-                  }`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
-                </svg>
-              ))}
-              <span className="text-gray-500 text-sm">({posts.reviews} reviews)</span>
-            </div>
-          </div>
+    {/* RIGHT: DETAILS */}
+    <div className="bg-white/70 backdrop-blur-xl p-10 lg:p-14 rounded-3xl shadow-xl">
+      
+      {/* Title */}
+      <h1 className="text-5xl font-extrabold text-gray-900 leading-tight">
+        {data.name}
+      </h1>
 
-          {/* Price + Button */}
-          <div className="mt-6 flex items-center justify-between">
-            <p className="text-2xl font-bold text-gray-900">${posts.price}</p>
-            <button className="px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-900 transition">
-              Add to Cart
-            </button>
-          </div>
+      {/* Description */}
+      <p className="text-gray-600 text-lg mt-5 leading-relaxed">
+        {data.description}
+      </p>
 
-          {/* Back Button */}
-          <div className="mt-6">
-            <Link
-              href="/products"
-              className="text-blue-600 hover:underline"
-            >
-              &larr; Back to Products
-            </Link>
-          </div>
-        </div>
+      {/* Rating */}
+      <div className="flex items-center gap-2 mt-6">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <svg
+            key={i}
+            className={`w-7 h-7 ${
+              i < Math.round(data.rating)
+                ? "text-yellow-400"
+                : "text-gray-300"
+            }`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.719c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" />
+          </svg>
+        ))}
+        <span className="text-gray-600 text-sm">({data.reviews} reviews)</span>
       </div>
-    </main>
+
+      {/* PRICE + CTA */}
+      <div className="mt-10 flex items-center justify-between">
+        <p className="text-5xl font-extrabold text-gray-900">
+          ${data.price}
+        </p>
+
+        <button className="px-10 py-4 bg-black text-white rounded-2xl text-lg font-semibold hover:bg-gray-800 shadow-lg transition-all duration-200 active:scale-95">
+          Add to Cart
+        </button>
+      </div>
+
+      {/* Back Link */}
+      <div className="mt-10">
+        <Link
+          href="/product"
+          className="text-blue-600 text-lg font-medium hover:underline"
+        >
+          ← Back to Products
+        </Link>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
   )
 }

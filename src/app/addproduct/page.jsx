@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // import useRouter
 
 export default function ProductForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function ProductForm() {
   });
 
   const [responseMsg, setResponseMsg] = useState("");
+  const router = useRouter(); // initialize router
 
   // Handle input change
   const handleChange = (e) => {
@@ -26,7 +28,7 @@ export default function ProductForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/products", {
+      const res = await fetch("http://localhost:5000/product", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +36,14 @@ export default function ProductForm() {
         body: JSON.stringify(formData),
       });
 
-     
+      if (!res.ok) throw new Error("Failed to add product");
+
+      const data = await res.json();
+
+      // Navigate to the newly added product page
+      // Assuming your route is /product/[id] and backend returns the new product's id
+      router.push(`/product`);
+
     } catch (err) {
       console.error(err);
       setResponseMsg("Error submitting product.");
@@ -125,4 +134,3 @@ export default function ProductForm() {
     </div>
   );
 }
-
