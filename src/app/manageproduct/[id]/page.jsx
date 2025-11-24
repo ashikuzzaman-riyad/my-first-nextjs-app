@@ -58,9 +58,9 @@ export default function EditProductPage() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6">
+    <div className="max-w-lg mx-auto p-6 bg-gray-900 text-gray-100">
       <h1 className="text-2xl font-bold mb-6">Edit Product:  {product.name}</h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4 " onSubmit={handleSubmit}>
         <input name="name" value={product.name} onChange={handleChange} className="border p-2 w-full" placeholder="Product Name" required />
         <input name="price" type="number" value={product.price} onChange={handleChange} className="border p-2 w-full" placeholder="Price" required />
         <textarea name="description" value={product.description} onChange={handleChange} className="border p-2 w-full" placeholder="Description" required />
