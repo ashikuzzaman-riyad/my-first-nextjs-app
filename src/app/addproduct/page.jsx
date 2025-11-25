@@ -2,32 +2,20 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 export default function ProductForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    image: "",
-    badge: "",
-    rating: "",
-    reviews: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const [responseMsg, setResponseMsg] = useState("");
   const router = useRouter();
 
-  // Handle Input Change
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Submit Product
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setResponseMsg("");
 
     try {
@@ -35,120 +23,94 @@ export default function ProductForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
-          price: Number(formData.price),
-          rating: Number(formData.rating),
-          reviews: Number(formData.reviews),
+          ...data,
+          price: Number(data.price),
+          rating: Number(data.rating),
+          reviews: Number(data.reviews),
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to add product");
-      }
+      if (!res.ok) throw new Error("Failed to add product");
 
-      const data = await res.json();
+      await res.json();
+      setResponseMsg("✅ Product Added Successfully!");
+      reset();
 
-      setResponseMsg("Product Added Successfully!");
-
-      // Redirect after 1 second
-      setTimeout(() => {
-        router.push("/product");
-      }, 1000);
-
-    } catch (error) {
-      console.error(error);
+      setTimeout(() => router.push("/product"), 1000);
+    } catch (err) {
+      console.error(err);
       setResponseMsg("❌ Error submitting product");
     }
   };
 
   return (
-  <div className="max-w-lg mx-auto p-8 bg-gray-800 rounded-3xl shadow-2xl shadow-green-600/50">
-  <h2 className="text-3xl font-extrabold mb-6 text-white text-center">
-    Add Product
-  </h2>
+    <div className="max-w-lg mx-auto p-8 bg-gray-900 text-gray-100 rounded-3xl shadow-2xl shadow-green-600/50 hover:shadow-green-500/70 transition-all duration-300">
+      <h2 className="text-3xl font-extrabold mb-6 text-center text-amber-400">
+        Add Product
+      </h2>
 
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <input
-      type="text"
-      name="name"
-      placeholder="Product Name"
-      value={formData.name}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      required
-    />
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <input
+          {...register("name", { required: "Product Name is required" })}
+          placeholder="Product Name"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-    <textarea
-      name="description"
-      placeholder="Product Description"
-      value={formData.description}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      required
-    />
+        <textarea
+          {...register("description", { required: "Description is required" })}
+          placeholder="Product Description"
+          rows={4}
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
+        {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-    <input
-      type="number"
-      name="price"
-      placeholder="Price"
-      value={formData.price}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      required
-    />
+        <input
+          type="number"
+          {...register("price", { required: "Price is required", min: 0 })}
+          placeholder="Price"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
+        {errors.price && <p className="text-red-500">{errors.price.message}</p>}
 
-    <input
-      type="text"
-      name="image"
-      placeholder="Image URL"
-      value={formData.image}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      required
-    />
+        <input
+          {...register("image", { required: "Image URL is required" })}
+          placeholder="Image URL"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
+        {errors.image && <p className="text-red-500">{errors.image.message}</p>}
 
-    <input
-      type="text"
-      name="badge"
-      placeholder="Badge"
-      value={formData.badge}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-    />
+        <input
+          {...register("badge")}
+          placeholder="Badge"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
 
-    <input
-      type="number"
-      name="rating"
-      placeholder="Rating (0–5)"
-      value={formData.rating}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      min="0"
-      max="5"
-      step="0.1"
-    />
+        <input
+          type="number"
+          {...register("rating", { min: 0, max: 5 })}
+          placeholder="Rating (0–5)"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
 
-    <input
-      type="number"
-      name="reviews"
-      placeholder="Reviews"
-      value={formData.reviews}
-      onChange={handleChange}
-      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-    />
+        <input
+          type="number"
+          {...register("reviews", { min: 0 })}
+          placeholder="Reviews"
+          className="w-full p-3 rounded-xl bg-gray-800 text-white border border-gray-700 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200 hover:border-green-400"
+        />
 
-    <button
-      type="submit"
-      className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-500 shadow-lg transition-all duration-200"
-    >
-      Submit Product
-    </button>
-  </form>
+        <button
+          type="submit"
+          className="w-full bg-green-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-green-500 hover:scale-105 transition-all duration-200"
+        >
+          Submit Product
+        </button>
+      </form>
 
-  {responseMsg && (
-    <p className="mt-4 text-center text-white">{responseMsg}</p>
-  )}
-</div>
-
+      {responseMsg && (
+        <p className="mt-4 text-center text-green-400 font-medium">{responseMsg}</p>
+      )}
+    </div>
   );
 }

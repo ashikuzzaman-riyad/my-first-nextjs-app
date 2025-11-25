@@ -1,69 +1,92 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { AuthContext } from "@/context/AuthProvider";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function RegisterPage() {
-  const router = useRouter();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+import React, { useContext } from "react";
 
-  const onSubmit = async (data) => {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+const Register = () => {
+  const { createUser,  } = useContext(AuthContext);
+const router = useRouter();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    if (res.ok) {
-      router.push("/login");
-    } else {
-      alert("Registration failed");
-    }
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    createUser(email, password)
+      .then((result) => {
+        router.push("/")
+        const user = result.user;
+       
+      })
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
   };
 
   return (
-    <div className=" my-20 flex justify-center items-center px-4">
-  <div className="p-10 rounded-3xl shadow-2xl shadow-green-600/50 w-full max-w-sm bg-gray-800/80 backdrop-blur-md">
-    <h2 className="text-3xl font-extrabold text-white text-center mb-6">
-      Register
-    </h2>
+    <div className="flex justify-center  items-center px-4 ">
+      <div className="max-w-md w-full bg-gray-800 rounded-3xl shadow-2xl shadow-amber-600/50 p-8 hover:shadow-amber-500/70 transition-all duration-300">
+        <h2 className="text-3xl font-extrabold text-center text-amber-400 mb-6">
+          Register Your Account
+        </h2>
 
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {/* Email */}
-      <input
-        type="email"
-        placeholder="Email"
-        {...register("email", { required: "Email is required" })}
-        className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      />
-      {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+            required
+          />
 
-      {/* Password */}
-      <input
-        type="password"
-        placeholder="Password"
-        {...register("password", { required: "Password is required" })}
-        className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
-      />
-      {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+          <input
+            type="text"
+            name="photo"
+            placeholder="Photo URL"
+            className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+            required
+          />
 
-      {/* Register Button */}
-      <button
-        type="submit"
-        className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-500 shadow-lg transition-all duration-200"
-      >
-        Register
-      </button>
-    </form>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+            required
+          />
 
-    {/* Login Link */}
-    <p className="mt-6 text-center text-gray-300 text-sm">
-      Already have an account?{" "}
-      <a href="/login" className="text-blue-400 font-medium hover:underline">
-        Login
-      </a>
-    </p>
-  </div>
-</div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+            required
+          />
 
+          <input
+            type="submit"
+            value="Register"
+            className="w-full bg-amber-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-amber-500 hover:scale-105 transition-all duration-200 cursor-pointer"
+          />
+
+          <p className="text-center text-gray-300">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-blue-500 font-medium hover:underline"
+            >
+              Login
+            </Link>
+          </p>
+        </form>
+      </div>
+    </div>
   );
-}
+};
+
+export default Register;

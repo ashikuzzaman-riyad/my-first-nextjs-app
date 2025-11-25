@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { AuthContext } from "@/context/AuthProvider";
 
 export default function Navbar({ session, status }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const {user, logOut} = use(AuthContext)
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
@@ -75,11 +76,9 @@ export default function Navbar({ session, status }) {
 
           {/* Auth Buttons */}
           <div className="flex flex-col lg:flex-row gap-3 mt-4 lg:mt-0 lg:ml-6">
-            {status === "loading" ? (
-              <p className="text-gray-300">Loading...</p>
-            ) : session ? (
+            {user ?  (
               <button
-                onClick={() => signOut()}
+                onClick={logOut}
                 className="bg-red-600 px-4 py-2 rounded-2xl text-white shadow hover:bg-red-500 transition-all duration-300"
               >
                 Logout

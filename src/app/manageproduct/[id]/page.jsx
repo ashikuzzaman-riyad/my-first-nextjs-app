@@ -63,71 +63,87 @@ export default function EditProductPage() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-900 text-gray-100">
-      <h1 className="text-2xl font-bold mb-6">Edit Product: {product.name}</h1>
-      <form className="space-y-4 " onSubmit={handleSubmit}>
-        <input
-          name="name"
-          value={product.name}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Product Name"
-          required
-        />
-        <input
-          name="price"
-          type="number"
-          value={product.price}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Price"
-          required
-        />
-        <textarea
-          name="description"
-          value={product.description}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Description"
-          required
-        />
-        <input
-          name="image"
-          value={product.image}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Image URL"
-        />
-        <input
-          name="badge"
-          value={product.badge}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Badge"
-        />
-        <input
-          name="rating"
-          type="number"
-          value={product.rating}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Rating"
-        />
-        <input
-          name="reviews"
-          type="number"
-          value={product.reviews}
-          onChange={handleChange}
-          className="border p-2 w-full"
-          placeholder="Reviews"
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500 transition"
-        >
-          Update Product
-        </button>
-      </form>
-    </div>
+   <div className="max-w-lg mx-auto p-8 bg-gray-900 text-gray-100 rounded-3xl shadow-2xl shadow-amber-400">
+  <h1 className="text-3xl font-bold mb-6 text-center text-amber-400">
+    Edit Product: {product.name}
+  </h1>
+
+  <form className="space-y-5" onSubmit={handleSubmit}>
+    <input
+      name="name"
+      value={product.name}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Product Name"
+      required
+    />
+
+    <input
+      name="price"
+      type="number"
+      value={product.price}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Price"
+      required
+    />
+
+    <textarea
+      name="description"
+      value={product.description}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Description"
+      rows={4}
+      required
+    />
+
+    <input
+      name="image"
+      value={product.image}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Image URL"
+    />
+
+    <input
+      name="badge"
+      value={product.badge}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Badge"
+    />
+
+    <input
+      name="rating"
+      type="number"
+      value={product.rating}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Rating"
+      min="0"
+      max="5"
+      step="0.1"
+    />
+
+    <input
+      name="reviews"
+      type="number"
+      value={product.reviews}
+      onChange={handleChange}
+      className="w-full p-3 rounded-xl border border-gray-700 bg-gray-800 focus:border-amber-400 focus:ring-1 focus:ring-amber-400 text-white placeholder-gray-400 outline-none transition-all duration-200 hover:border-amber-500"
+      placeholder="Reviews"
+      min="0"
+    />
+
+    <button
+      type="submit"
+      className="w-full py-3 bg-amber-500 text-gray-900 font-bold rounded-xl shadow-lg hover:bg-amber-400 transition-all duration-200 hover:scale-105"
+    >
+      Update Product
+    </button>
+  </form>
+</div>
+
   );
 }

@@ -1,105 +1,106 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { use,  } from "react";
+
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/context/AuthProvider";
+import { useForm } from "react-hook-form";
+import Link from "next/link";
 
 export default function LoginPage() {
+  const { googleSignIn, setLoading, signIn } = use(AuthContext);
   const router = useRouter();
+   const { register, handleSubmit,    } = useForm();
+ 
+const onSubmit = (data) => {
+    const { email, password } = data;
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [error, setError] = useState("");
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: user.email,
-      password: user.password,
-    });
-
-    if (res.error) {
-      setError("Invalid credentials");
-      return;
-    }
-
-    router.push("/"); // redirect after login
+    signIn(email, password)
+      .then(() => {
+        router.push("/");
+        alert("User logged in");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
+   const handleSignIn = () => {
+
+  googleSignIn()
+    .then((res) => {
+      setUser(res.user);
+    router.push("/");
+     setLoading(false);
+      
+    })
+    .catch((error) => {
+     
+    });
+};
+
   return (
-   <div className="my-20 flex justify-center items-center px-4">
-  <form
-    onSubmit={handleLogin}
-    className="bg-gray-800 p-10 rounded-3xl shadow-2xl shadow-blue-600 w-full max-w-sm"
-  >
-    {/* Title */}
-    <h2 className="text-3xl font-extrabold mb-6 text-center text-white">
+    <div className="flex justify-center my-20 items-center px-4 ">
+  <div className="max-w-md w-full bg-gray-800 rounded-3xl shadow-2xl shadow-amber-600/50 p-8 hover:shadow-amber-500/70 transition-all duration-300">
+    <h2 className="text-3xl font-extrabold text-center text-amber-400 mb-6">
       Login
     </h2>
 
-    {/* Error message */}
-    {error && (
-      <p className="text-red-500 text-center mb-4">{error}</p>
-    )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <input
+        type="email"
+        placeholder="Email"
+        {...register("email", { required: true })}
+        className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+      />
 
-    {/* Email */}
-    <label className="block mb-2 font-medium text-gray-200">Email</label>
-    <input
-      type="email"
-      className="w-full p-3 rounded-lg mb-4 bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200"
-      value={user.email}
-      onChange={(e) => setUser({ ...user, email: e.target.value })}
-      required
-    />
+      <input
+        type="password"
+        placeholder="Password"
+        {...register("password", { required: true })}
+        className="w-full p-3 rounded-xl bg-gray-700 text-white border border-gray-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 outline-none transition-all duration-200 hover:border-amber-400"
+      />
 
-    {/* Password */}
-    <label className="block mb-2 font-medium text-gray-200">Password</label>
-    <input
-      type="password"
-      className="w-full p-3 rounded-lg mb-4 bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200"
-      value={user.password}
-      onChange={(e) => setUser({ ...user, password: e.target.value })}
-      required
-    />
-
-    {/* Login Button */}
-    <button
-      type="submit"
-      className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-500 shadow-lg transition-all duration-200"
-    >
-      Login
-    </button>
-
-    {/* OR divider */}
-    <div className="my-6 text-center text-gray-400 font-medium">OR</div>
-
-    {/* Google Login */}
-    <button
-      type="button"
-      onClick={() => signIn("google")}
-      className="w-full bg-red-600 text-white p-3 rounded-lg font-semibold hover:bg-red-500 shadow-lg transition-all duration-200"
-    >
-      Continue With Google
-    </button>
-
-    {/* Toggle Register Link */}
-    <p className="mt-6 text-center text-gray-300 text-sm">
-      Don't have an account?{" "}
-      <a
-        href="/register" // or toggle function if using state
-        className="text-blue-400 font-medium hover:underline"
+      <button
+        type="submit"
+        className="w-full bg-amber-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-amber-500 hover:scale-105 transition-all duration-200"
       >
-        Register
-      </a>
-    </p>
-  </form>
-</div>
+        Login
+      </button>
+    </form>
 
+    <div className="text-center text-gray-300 my-4">OR</div>
+
+    <button
+      onClick={handleSignIn}
+      className="w-full flex items-center justify-center gap-2 border border-gray-600 py-3 rounded-xl font-semibold hover:bg-gray-700 transition"
+    >
+      <svg
+        aria-label="Google logo"
+        width="20"
+        height="20"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <g>
+          <path d="m0 0H512V512H0" fill="#fff"></path>
+          <path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path>
+          <path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path>
+          <path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path>
+          <path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path>
+        </g>
+      </svg>
+      Continue with Google
+    </button>
+
+    <p className="text-center text-gray-300 mt-4">
+      Don’t have an account?{" "}
+      <Link href="/register" className="text-amber-400 font-semibold hover:underline">
+        Register
+      </Link>
+    </p>
+  </div>
+</div>
 
   );
 }
