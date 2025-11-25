@@ -1,10 +1,10 @@
 "use client"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { BsArrowUpRightCircleFill } from "react-icons/bs";
+
 // import styles bundle
 import 'swiper/css/bundle';
 import { Carousel } from "react-responsive-carousel";
-import Image from "next/image";
+
 import Homepage from "@/home/page";
 import ProductShowcase from "@/components/page";
 

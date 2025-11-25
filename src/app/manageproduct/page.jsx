@@ -71,15 +71,19 @@ export default function ManageProducts() {
   {/* Table Body */}
 <tbody className="bg-gray-900 text-gray-100">
   {products.map((item) => (
-    <tr key={item._id} className="hover:bg-gray-700 transition-colors duration-200">
-      <td className="px-4 py-2 border border-gray-700">
+    <tr key={item._id} className="hover:bg-gray-700 transition-colors duration-200 text-center">
+      <td className="px-4 py-2 border flex flex-col justify-center items-center border-gray-700">
         <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded" width={48} height={48}/>
       </td>
       <td className="px-4 py-2 border border-gray-700">{item.name}</td>
-      <td className="px-4 py-2 border border-gray-700 space-x-2">
+      <td className="px-4 py-2 border border-gray-700 space-x-5">
         <Link  href={`/manageproduct/${item._id}`}
  className="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200">
           Edit
+        </Link>
+        <Link  href={`/product/${item._id}`}
+ className="px-2 py-1 bg-cyan-800 text-white rounded hover:bg-blue-700 transition-colors duration-200">
+          vew
         </Link>
         <button
           className="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors duration-200"
