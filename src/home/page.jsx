@@ -28,13 +28,13 @@ const reasons = [
 
 const WhyShopWithUs = () => {
   return (
-   <section className="py-26 px-4 sm:px-6 lg:px-8 ">
+   <section className="py-16 px-4 sm:px-6 lg:px-8 ">
   <div className="max-w-6xl mx-auto text-center">
     {/* Title and Subtitle */}
-    <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
+    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
       Why Shop With Us?
     </h2>
-    <p className="text-gray-600 mb-12">
+    <p className="text-gray-300 mb-12">
       We provide the best experience for our customers.
     </p>
 
@@ -43,20 +43,20 @@ const WhyShopWithUs = () => {
       {reasons.map((reason, index) => (
         <div
           key={index}
-          className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transform transition-all duration-500 border border-gray-100"
+          className="bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-500 border border-gray-700"
         >
           {/* Icon Container */}
           <div className="flex items-center justify-center mb-5">
-            <div className="p-4 rounded-full bg-gradient-to-tr from-blue-100 to-blue-200 text-blue-600 hover:bg-gradient-to-br hover:from-blue-200 hover:to-blue-300 transition-all duration-300">
+            <div className="p-4 rounded-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white hover:from-blue-500 hover:to-blue-300 transition-all duration-300">
               <reason.icon className="w-8 h-8 hover:animate-bounce" />
             </div>
           </div>
 
           {/* Title and Description */}
-          <h3 className="text-xl  text-center font-semibold text-gray-800 mb-3 ">
+          <h3 className="text-xl font-semibold text-white mb-3 text-center">
             {reason.title}
           </h3>
-          <p className="text-sm  text-gray-500  text-center">
+          <p className="text-gray-300 text-sm text-center">
             {reason.description}
           </p>
         </div>
@@ -64,6 +64,7 @@ const WhyShopWithUs = () => {
     </div>
   </div>
 </section>
+
 
   );
 };
