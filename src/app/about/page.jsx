@@ -34,7 +34,7 @@ export default function page() {
 
       <div className="w-full h-72 bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-amber-500 hover:scale-105 transition-transform duration-300">
         <img
-          src="https://via.placeholder.com/600x400"
+          src="https://i.ibb.co.com/gbrT2R5t/images-q-tbn-ANd9-Gc-Tnu-NLmv-RAJ5-QIwn8-ZMn-F-7kdfz-Lpn2-CTXr-Cw-s.jpg"
           alt="About our store"
           className="object-cover w-full h-full"
         />
