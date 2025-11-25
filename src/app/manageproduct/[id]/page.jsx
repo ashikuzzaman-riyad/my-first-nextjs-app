@@ -21,7 +21,7 @@ export default function EditProductPage() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const res = await fetch(`http://localhost:5000/product/${id}`);
+        const res = await fetch(`https://my-first-next-server.vercel.app/product/${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (err) {
@@ -40,7 +40,7 @@ export default function EditProductPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/product/${id}`, {
+      const res = await fetch(`https://my-first-next-server.vercel.app/product/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),

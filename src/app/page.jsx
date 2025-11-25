@@ -5,10 +5,12 @@ import { BsArrowUpRightCircleFill } from "react-icons/bs";
 import 'swiper/css/bundle';
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
+import Homepage from "@/home/page";
 
 
 export default function Home() {
   return (
+    <>
     <div className="w-full">
   <Carousel
     autoPlay
@@ -45,6 +47,8 @@ export default function Home() {
     </div>
   </Carousel>
 </div>
+<Homepage></Homepage>
+    </>
 
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // import useRouter
+import { useRouter } from "next/navigation";
 
 export default function ProductForm() {
   const [formData, setFormData] = useState({
@@ -15,52 +15,65 @@ export default function ProductForm() {
   });
 
   const [responseMsg, setResponseMsg] = useState("");
-  const router = useRouter(); // initialize router
+  const router = useRouter();
 
-  // Handle input change
+  // Handle Input Change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // Handle form submit
+  // Submit Product
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setResponseMsg("");
 
     try {
-      const res = await fetch("http://localhost:5000/product", {
+      const res = await fetch("https://my-first-next-server.vercel.app/product", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          price: Number(formData.price),
+          rating: Number(formData.rating),
+          reviews: Number(formData.reviews),
+        }),
       });
 
-      if (!res.ok) throw new Error("Failed to add product");
+      if (!res.ok) {
+        throw new Error("Failed to add product");
+      }
 
       const data = await res.json();
 
-      // Navigate to the newly added product page
-      // Assuming your route is /product/[id] and backend returns the new product's id
-      router.push(`/product`);
+      setResponseMsg("Product Added Successfully!");
 
-    } catch (err) {
-      console.error(err);
-      setResponseMsg("Error submitting product.");
+      // Redirect after 1 second
+      setTimeout(() => {
+        router.push("/product");
+      }, 1000);
+
+    } catch (error) {
+      console.error(error);
+      setResponseMsg("❌ Error submitting product");
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-600  rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Add Product</h2>
+    <div className="max-w-lg mx-auto p-6 bg-gray-600 rounded-lg">
+      <h2 className="text-2xl font-bold mb-4 text-white">Add Product</h2>
+
       <form onSubmit={handleSubmit} className="space-y-4">
+
         <input
           type="text"
           name="name"
           placeholder="Product Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 border rounded-md "
+          className="w-full p-2 border rounded-md"
           required
         />
 
@@ -90,12 +103,13 @@ export default function ProductForm() {
           value={formData.image}
           onChange={handleChange}
           className="w-full p-2 border rounded-md"
+          required
         />
 
         <input
           type="text"
           name="badge"
-          placeholder="Badge (optional)"
+          placeholder="Badge"
           value={formData.badge}
           onChange={handleChange}
           className="w-full p-2 border rounded-md"
@@ -104,19 +118,19 @@ export default function ProductForm() {
         <input
           type="number"
           name="rating"
-          placeholder="Rating (0-5)"
+          placeholder="Rating (0–5)"
           value={formData.rating}
           onChange={handleChange}
-          step="0.1"
+          className="w-full p-2 border rounded-md"
           min="0"
           max="5"
-          className="w-full p-2 border rounded-md"
+          step="0.1"
         />
 
         <input
           type="number"
           name="reviews"
-          placeholder="Number of Reviews"
+          placeholder="Reviews"
           value={formData.reviews}
           onChange={handleChange}
           className="w-full p-2 border rounded-md"
@@ -130,7 +144,9 @@ export default function ProductForm() {
         </button>
       </form>
 
-      {responseMsg && <p className="mt-4 text-center">{responseMsg}</p>}
+      {responseMsg && (
+        <p className="mt-4 text-center text-white">{responseMsg}</p>
+      )}
     </div>
   );
 }
