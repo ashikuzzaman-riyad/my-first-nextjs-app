@@ -62,91 +62,93 @@ export default function ProductForm() {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-600 rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-white">Add Product</h2>
+  <div className="max-w-lg mx-auto p-8 bg-gray-800 rounded-3xl shadow-2xl shadow-green-600/50">
+  <h2 className="text-3xl font-extrabold mb-6 text-white text-center">
+    Add Product
+  </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <input
+      type="text"
+      name="name"
+      placeholder="Product Name"
+      value={formData.name}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+      required
+    />
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-          required
-        />
+    <textarea
+      name="description"
+      placeholder="Product Description"
+      value={formData.description}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+      required
+    />
 
-        <textarea
-          name="description"
-          placeholder="Product Description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-          required
-        />
+    <input
+      type="number"
+      name="price"
+      placeholder="Price"
+      value={formData.price}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+      required
+    />
 
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-          required
-        />
+    <input
+      type="text"
+      name="image"
+      placeholder="Image URL"
+      value={formData.image}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+      required
+    />
 
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-          required
-        />
+    <input
+      type="text"
+      name="badge"
+      placeholder="Badge"
+      value={formData.badge}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+    />
 
-        <input
-          type="text"
-          name="badge"
-          placeholder="Badge"
-          value={formData.badge}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-        />
+    <input
+      type="number"
+      name="rating"
+      placeholder="Rating (0–5)"
+      value={formData.rating}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+      min="0"
+      max="5"
+      step="0.1"
+    />
 
-        <input
-          type="number"
-          name="rating"
-          placeholder="Rating (0–5)"
-          value={formData.rating}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-          min="0"
-          max="5"
-          step="0.1"
-        />
+    <input
+      type="number"
+      name="reviews"
+      placeholder="Reviews"
+      value={formData.reviews}
+      onChange={handleChange}
+      className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none transition-all duration-200"
+    />
 
-        <input
-          type="number"
-          name="reviews"
-          placeholder="Reviews"
-          value={formData.reviews}
-          onChange={handleChange}
-          className="w-full p-2 border rounded-md"
-        />
+    <button
+      type="submit"
+      className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-500 shadow-lg transition-all duration-200"
+    >
+      Submit Product
+    </button>
+  </form>
 
-        <button
-          type="submit"
-          className="w-full bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
-        >
-          Submit Product
-        </button>
-      </form>
+  {responseMsg && (
+    <p className="mt-4 text-center text-white">{responseMsg}</p>
+  )}
+</div>
 
-      {responseMsg && (
-        <p className="mt-4 text-center text-white">{responseMsg}</p>
-      )}
-    </div>
   );
 }

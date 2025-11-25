@@ -57,49 +57,62 @@ export default function ManageProducts() {
   return (
     <>
      
-<div className="container mx-auto">
-  <table className="min-w-full border border-gray-700 rounded-lg overflow-hidden">
-  {/* Table Header */}
-  <thead className="bg-gray-800 text-white">
-    <tr>
-      <th className="px-4 py-2 border border-gray-700">Image</th>
-      <th className="px-4 py-2 border border-gray-700">Name</th>
-      <th className="px-4 py-2 border border-gray-700">Action</th>
-    </tr>
-  </thead>
+<div className="container mx-auto px-4">
+  <div className="overflow-x-auto rounded-lg shadow-lg">
+    <table className="min-w-full border-collapse border border-gray-700">
+      {/* Table Header */}
+      <thead className="bg-gray-800 text-white">
+        <tr>
+          <th className="px-4 py-3 border border-gray-700">Image</th>
+          <th className="px-4 py-3 border border-gray-700">Name</th>
+          <th className="px-4 py-3 border border-gray-700">Action</th>
+        </tr>
+      </thead>
 
-  {/* Table Body */}
-<tbody className="bg-gray-900 text-gray-100">
-  {products.map((item) => (
-    <tr key={item._id} className="hover:bg-gray-700 transition-colors duration-200 text-center">
-      <td className="px-4 py-2 border flex flex-col justify-center items-center border-gray-700">
-        <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded" width={48} height={48}/>
-      </td>
-      <td className="px-4 py-2 border border-gray-700">{item.name}</td>
-      <td className="px-4 py-2 border border-gray-700 space-x-5">
-        <Link  href={`/manageproduct/${item._id}`}
- className="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors duration-200">
-          Edit
-        </Link>
-        <Link  href={`/product/${item._id}`}
- className="px-2 py-1 bg-cyan-800 text-white rounded hover:bg-blue-700 transition-colors duration-200">
-          vew
-        </Link>
-        <button
-          className="px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors duration-200"
-          onClick={() => handleDelete(item._id)}
-        >
-          Delete
-        </button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
-</table>
-
-
+      {/* Table Body */}
+      <tbody className="bg-gray-900 text-gray-100">
+        {products.map((item) => (
+          <tr
+            key={item._id}
+            className="hover:bg-gray-700 transition-colors duration-200 text-center"
+          >
+            <td className="px-4 py-3 border border-gray-700 flex justify-center items-center">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-12 h-12 object-cover rounded-full"
+                width={48}
+                height={48}
+              />
+            </td>
+            <td className="px-4 py-3 border border-gray-700">{item.name}</td>
+            <td className="px-4 py-3 border border-gray-700 flex flex-wrap justify-center gap-2">
+              <Link
+                href={`/manageproduct/${item._id}`}
+                className="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              >
+                Edit
+              </Link>
+              <Link
+                href={`/product/${item._id}`}
+                className="px-3 py-1 bg-cyan-800 text-white rounded-lg hover:bg-cyan-700 transition-colors duration-200"
+              >
+                View
+              </Link>
+              <button
+                className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200"
+                onClick={() => handleDelete(item._id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 </div>
+
 
     </>
   );
