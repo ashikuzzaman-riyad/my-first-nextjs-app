@@ -20,9 +20,9 @@ export default function Navbar({ session, status }) {
     <header className="bg-gray-900 mb-5 shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-5 flex-wrap">
         {/* Logo */}
-        <div>
+        <Link href='/'>
           <h2 className="text-2xl font-bold text-white">VortexGear</h2>
-        </div>
+        </Link>
 
         {/* Hamburger Button (Mobile) */}
         <button
