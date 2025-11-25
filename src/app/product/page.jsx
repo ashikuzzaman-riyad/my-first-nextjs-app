@@ -14,14 +14,7 @@ export default async function Page() {
     });
 
     // If backend gives HTML / error
-    if (!res.ok) {
-      console.error("API Error:", res.status);
-      return (
-        <main className="min-h-screen bg-black flex justify-center items-center">
-          <h1 className="text-white text-2xl">Backend Error</h1>
-        </main>
-      );
-    }
+   
 
     posts = await res.json();
   } catch (error) {

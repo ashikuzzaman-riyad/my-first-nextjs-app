@@ -79,7 +79,7 @@ export default async function Page({ params }) {
       {/* BACK LINK */}
       <div className="mt-6 sm:mt-10">
         <Link
-          href="/products"
+          href="/product"
           className="text-blue-400 text-base sm:text-lg font-medium hover:underline"
         >
           ← Back to Products
