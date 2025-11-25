@@ -7,6 +7,8 @@ import { Carousel } from "react-responsive-carousel";
 
 import Homepage from "@/home/page";
 import ProductShowcase from "@/components/page";
+import Achievements from "@/components/acivement";
+import UserTestimonials from "@/components/testimonials";
 
 
 export default function Home() {
@@ -48,8 +50,10 @@ export default function Home() {
     </div>
   </Carousel>
 </div>
-<Homepage></Homepage>
 <ProductShowcase></ProductShowcase>
+<Homepage></Homepage>
+<Achievements></Achievements>
+<UserTestimonials></UserTestimonials>
     </>
 
   );

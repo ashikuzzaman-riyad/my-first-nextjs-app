@@ -30,45 +30,56 @@ const products = [
 ];
 
 export default function ProductShowcase() {
-  const [showDetails, setShowDetails] = useState(false);
-
   return (
-    <div className="p-8 relative  ">
-  {/* Title and "View All" link */}
-  <div >
-    <h2 className="text-3xl font-bold text-white text-center">Top Picks</h2>
-    <Link
-      href="/product"
-      className="text-blue-400  font-semibold hover:underline"
-    >
-     <p className='text-right container '> View All</p>
-    </Link>
-  </div>
+    <section className="py-16 px-6 ">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-10">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-amber-400 mb-2 sm:mb-0 text-center sm:text-left">
+            Top Picks
+          </h2>
+          <Link href="/product" className="text-blue-400 font-semibold hover:underline">
+            View All
+          </Link>
+        </div>
 
-  {/* Product Cards */}
-  <div className="flex flex-wrap justify-center gap-6">
-    {products.map((product, index) => (
-      <div
-        key={index}
-        className="bg-gray-800 rounded-xl shadow-lg p-6 w-90 hover:-translate-y-1 hover:shadow-2xl transition-transform duration-300"
-      >
-        {/* Badge */}
-        <span
-          className={`inline-block px-3 py-1 rounded-full text-sm font-semibold mb-2 ${product.badgeColor}`}
-        >
-          {product.label}
-        </span>
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {products.map((product, index) => (
+            <div
+              key={index}
+              className="bg-gray-800 rounded-3xl shadow-lg p-6 hover:shadow-amber-500/50 hover:scale-105 transition-transform duration-300 flex flex-col justify-between"
+            >
+              {/* Badge */}
+              <span
+                className={`inline-block px-3 py-1 rounded-full text-sm font-semibold mb-4 ${product.badgeColor}`}
+              >
+                {product.label}
+              </span>
 
-        {/* Product Title */}
-        <h3 className="text-xl font-semibold mb-2 text-white">{product.title}</h3>
+              {/* Title */}
+              <h3 className="text-xl font-bold text-white mb-2">{product.title}</h3>
 
-        {/* Product Info */}
-        <p className="font-bold text-gray-200">{product.price}</p>
-        <p className="text-gray-400">{product.rating}</p>
+              {/* Description */}
+              <p className="text-gray-300 mb-4 line-clamp-3">{product.description}</p>
+
+              {/* Price & Rating */}
+              <div className="flex flex-col gap-2">
+                <p className="text-2xl font-extrabold text-amber-400">{product.price}</p>
+                <p className="text-gray-400">{product.rating}</p>
+              </div>
+
+              {/* View Details Button */}
+              <Link
+                href="/product"
+                className="mt-4 inline-block text-center bg-amber-600 hover:bg-amber-500 text-white py-2 rounded-xl font-semibold shadow-md transition-all duration-300"
+              >
+                View Details
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
-
+    </section>
   );
 }
