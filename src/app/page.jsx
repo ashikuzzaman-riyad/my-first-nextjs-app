@@ -6,6 +6,7 @@ import 'swiper/css/bundle';
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import Homepage from "@/home/page";
+import ProductShowcase from "@/components/page";
 
 
 export default function Home() {
@@ -48,6 +49,7 @@ export default function Home() {
   </Carousel>
 </div>
 <Homepage></Homepage>
+<ProductShowcase></ProductShowcase>
     </>
 
   );
