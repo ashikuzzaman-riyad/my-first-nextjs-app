@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 const Achievements = () => {
   const stats = [
-    { id: 1, title: "Products Sold", value: 25000, suffix: "K+", icon: "🛒" },
-    { id: 2, title: "Happy Customers", value: 10000, suffix: "K+", icon: "😊" },
-    { id: 3, title: "Trusted Brands", value: 120, suffix: "+", icon: "🏆" },
-    { id: 4, title: "Awards Won", value: 15, suffix: "+", icon: "🎖️" },
+    { id: 1, title: "Products Sold", value: 25000, suffix: "1K+", icon: "🛒" },
+    { id: 2, title: "Happy Customers", value: 10000, suffix: "2K+", icon: "😊" },
+    { id: 3, title: "Trusted Brands", value: 120, suffix: "50+", icon: "🏆" },
+    { id: 4, title: "Awards Won", value: 15, suffix: "70+", icon: "🎖️" },
   ];
 
  

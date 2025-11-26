@@ -57,7 +57,7 @@ export default function ManageProducts() {
   return (
     <>
      
-<div className="container mx-auto px-4">
+<div className="container mx-auto my-10 px-4">
   <div className="overflow-x-auto rounded-lg shadow-lg">
     <table className="min-w-full border-collapse border border-gray-700">
       {/* Table Header */}
