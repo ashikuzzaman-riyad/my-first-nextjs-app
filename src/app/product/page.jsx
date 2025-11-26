@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-// Stop prerendering → solve Vercel JSON error
+
 export const dynamic = "force-dynamic";
 
 export default async function Page() {
@@ -12,8 +12,7 @@ export default async function Page() {
       cache: "no-store",
     });
 
-    // If backend gives HTML / error
-
+   
     posts = await res.json();
   } catch (error) {
     console.error("Fetch Error:", error);
