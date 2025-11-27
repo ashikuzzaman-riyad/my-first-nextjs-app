@@ -84,7 +84,7 @@ export default function Navbar({ session, status }) {
                 Logout
               </button>
             ) : (
-              <>
+              <div className="flex flex-col gap-3.5" onClick={() => setMenuOpen(false)}>
                 <Link
                   href="/login"
                   className="bg-amber-600 px-4 py-2 rounded-2xl text-white shadow hover:bg-amber-500 transition-all duration-300"
@@ -97,7 +97,7 @@ export default function Navbar({ session, status }) {
                 >
                   Signup
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
